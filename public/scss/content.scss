@@ -1,0 +1,196 @@
+@import './sprite.scss';
+
+/* 阅读内容区域的样式控制 */
+.m-reading-container {
+  width: 100%;
+  /*padding: 10px;*/
+  box-sizing: border-box;
+
+  h1 {
+    font-size: 18px;
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+  }
+
+  h2 {
+    font-size: 16px;
+    text-indent: 0rem;
+    margin-bottom: 5px;
+  }
+
+  /* 内容区域块*/
+  .m-section {
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    /* 左边区域 一般放置图片 */
+    padding: 10px;
+    padding-bottom: 0px;
+    .leftContent {
+      width: 35%;
+      float: left;
+
+      img {
+        width: 100%;
+        min-height: 130px;
+        max-height: 166px;
+      }
+    }
+    /* 图片下的文字介绍信息 */
+    .m-img-title {
+      display: block;
+      width: 100%;
+      font-style:normal;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* 右边区域 一般放置文字 */
+    .rightContent {
+      padding: 0px 0px 0px 10px;
+      overflow:hidden;
+      text-align: justify;
+      text-indent: 2rem;
+      color: #515151;
+    }
+  }
+}
+
+.m-folder-ctrl {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height:30px;
+  line-height: 30px;
+  border-top: 1px solid #ddd;
+  font-size: 13px;
+  font-weight: bold;
+
+  .btnContainer {
+    position:absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .btnContainer a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  .btnContainer a:hover {
+    color:#42c229;
+  }
+
+
+  .btnContainer i.foldOn{
+    display: inline-block;
+    width: 16px;
+    height: 30px;
+    background: url('../img/foldOn.png') no-repeat;
+    background-size: 16px 16px;
+    background-position: 50% 46%;
+    vertical-align: middle;
+  }
+
+  .btnContainer i.foldOff {
+    display: inline-block;
+    width: 16px;
+    height: 30px;
+    background: url('../img/foldOff.png') no-repeat;
+    background-size: 16px 16px;
+    background-position: 50% 46%;
+    vertical-align: middle;
+  }
+}
+
+.m-folder-ctrl:hover {
+  /*color: #e42e2d;*/
+  color: #42c229;
+}
+
+.m-video-container {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+
+  h1 {
+    border: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  h5 {
+    padding-left: 10px;
+  }
+
+  video {
+    position:absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.m-link-container {
+  text-decoration: none;
+
+  h3 {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .m-detail-img {
+    width: 100%;
+    height:1%;
+  }
+  
+  .m-detail-word {
+    margin-bottom: 10px;
+    text-indent: 2rem;
+    color: #000;
+    font-size: 14px;
+    text-align: justify;
+  }
+}
+
+.f-logo {
+  margin: 0px auto;
+  margin-top: -20px;
+  border-radius: 5px;
+  background: url("../img/sprite.png") no-repeat;
+}
+
+.logo-wiki {
+  @include sprite($wiki-logo);
+}
+
+.logo-baidu {
+  @include sprite($baidu-logo);
+}
+
+.logo-guoke {
+  @include sprite($guoke-logo);
+}
+
+.logo-songshu {
+  @include sprite($songshu-logo);
+}
+
+.logo-zhihu {
+  @include  sprite($zhihu-logo);
+}
+
+.f-test {
+  width: 20px;
+  height: 40px;
+  line-height: 30px;
+  color: #fff;
+  /*background: linear-gradient(135deg,#df2c2f,#df2c2f 70%,#fff 71%,#fff);*/
+  background: linear-gradient(135deg,#4cb125,#4cb125 70%,#fff 71%,#fff);
+  text-align: center;
+}

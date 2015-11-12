@@ -1,0 +1,38 @@
+[
+  {
+    "cat_ch": "地球",
+    "cat_en": "Earth",
+    "class": "f-blue",
+    "svg": "icon_earth.svg"
+  },
+  {
+    "cat_ch": "动物",
+    "cat_en": "Animal",
+    "class": "f-purple",
+    "svg": "icon_animal.svg"
+  },
+  {
+    "cat_ch": "植物",
+    "cat_en": "Botany",
+    "class": "f-green",
+    "svg": "icon_plant.svg"
+  },
+  {
+    "cat_ch": "环境",
+    "cat_en": "Environment",
+    "class": "f-blue",
+    "svg": "icon_environ.svg"
+  },
+  {
+    "cat_ch": "自然",
+    "cat_en": "Nature",
+    "class": "f-purple",
+    "svg": "icon_leaf.svg"
+  },
+  {
+    "cat_ch": "浙江",
+    "cat_en": "Zhejiang",
+    "class": "f-green",
+    "svg": "icon_lake.svg"
+  }
+]

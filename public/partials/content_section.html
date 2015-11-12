@@ -1,0 +1,29 @@
+<!-- 阅读部分的模板 -->
+<section class="m-section">
+    <div class="leftContent" ng-hide="isHide">
+        <img ng-src="public/img/{{item.img}}" ng-show="item.img"/>
+        <i class="m-img-title" ng-show="item.imgTitle">{{item.imgTitle}}</i>
+    </div>
+    <div class="rightContent">
+        <h2>{{item.title}}</h2>
+        <!--<p ng-hide="isHide" ng-bind-html="item.content | to_trusted">-->
+        <p ng-hide="isHide" ng-bind-html="item.content | to_trusted">
+        </p>
+    </div>
+
+    <!-- 控制面板的收起button -->
+    <div class="m-folder-ctrl" ng-hide="isHide">
+        <div class="btnContainer">
+            <a href="#" ng-click="foldOff($event)">点击收起</a>
+            <i class="foldOff"></i>
+        </div>
+    </div>
+
+    <!-- 控制面板的展开button -->
+    <div class="m-folder-ctrl" ng-hide="!isHide">
+        <div class="btnContainer">
+            <a href="#" ng-click="foldOn($event)" ng-class="">点击展开</a>
+            <i class="foldOn"></i>
+        </div>
+    </div>
+</section>

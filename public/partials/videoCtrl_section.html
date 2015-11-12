@@ -1,0 +1,20 @@
+<section class="m-video-container" click-control>
+    <div>
+        <h1>放置title</h1>
+        <input type="text" placeholder="title内容"/>
+    </div>
+    <div>
+        <h1>放置链接站点名称</h1>
+        <input type="text" placeholder="站点名称"/>
+    </div>
+    <div>
+        <h1>放置来源链接地址</h1>
+        <input type="text" placeholder="链接url"/>
+    </div>
+    <!-- 将表单中的内容生成json对象 -->
+    <button ng-click="getJson()">save</button>
+    <!-- 清除表中内容 -->
+    <button data-name="reset">clear</button>
+    <!-- 移除这个模块 -->
+    <button data-name="remove">remove</button>
+</section>

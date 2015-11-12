@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content=" "/>
+    <meta name="description" content=" "/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>目录</title>
+    <link href="../build/css/index.css" rel="stylesheet"/>
+    <base href="/"/>
+</head>
+<body ng-controller="myControl" class="m-wrapper">
+    <div class="m-search-container">
+        <input type="text" placeholder="输入你感兴趣的类目" class="m-search" ng-model="cat"/>
+        <span aria-hidden="true" data-icon="&#x21f7;" class="m-close"></span>
+    </div>
+
+    <h1 class="m-title">Categories</h1>
+    <div class="m-container">
+        <div class="item" ng-repeat="item in listArr|filter: {cat_ch: cat}">
+            <a  href="/public/category">
+                <!--{{item.cat_ch}}-->
+                <img ng-src="public/img/svg/{{item.svg}}" width="50px" height="50px"/>
+            </a>
+            <div>
+                {{item.cat_ch}}
+            </div>
+            <div>
+                {{item.cat_en}}
+            </div>
+        </div>
+    </div>
+
+    <!-- 把公共依赖的内容全部打包到vendor.js中 -->
+    <script src="../build/js/vendor.js"></script>
+    <script src="../build/js/index.bundle.js"></script>
+</body>
+</html>

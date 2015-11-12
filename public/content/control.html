@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="../../build/css/index.css" rel="stylesheet"/>
+    <style>
+        body {
+            background: #fff;
+            color: #000;
+            padding: 10px;
+        }
+
+        .m-content-container {
+            width: 300px;
+        }
+
+        .m-content-container .left {
+            float: left;
+            width: 200px;
+        }
+
+        .m-content-container .right {
+            overflow: hidden;
+        }
+
+        .img {
+            width: 150px;
+            height: 200px;
+            background: #ddd;
+        }
+
+        .f-space {
+            height: 20px;
+        }
+
+        /*一些样式重置*/
+        .m-content-container {
+            width: 500px;
+        }
+
+        h1 {
+            font-size: 16px;
+        }
+
+        input {
+            color: #000 !Important;
+        }
+
+        textarea {
+            border: none;
+        }
+
+        section {
+            width: 100%;
+            box-sizing: border-box;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid gray;
+        }
+
+        .f-add-btn {
+            width: 500px;
+            margin: 10px;
+        }
+
+        .m-row {
+            margin-top: 10px;
+        }
+
+        select {
+            border: 1px solid gray;
+        }
+    </style>
+    <base href="/"/>
+</head>
+<body ng-app="contentApp" ng-controller="jsonCtrl">
+<b>内容管理生成json内容</b>
+
+<div class="m-row">
+    生成的json文件名:<input type="text" placeholder="文件名" id="fileName"/>
+</div>
+
+<div>
+    <button ng-click="generateFile()">生成文件</button>
+</div>
+
+
+<div class="m-row">
+    依据类型:
+    <a href="/public/content/ctrlread" class="m-link">阅读</a>
+    <a href="/public/content/ctrlvideo" class="m-link">视听</a>
+    <a href="/public/content/ctrlfind" class="m-link">发现</a>
+</div>
+
+
+<div class="f-space"></div>
+
+<div class="m-content-container" id="container">
+    <!--<section>
+        <div class="left">
+            <div class="img">
+                <div>放置img区域</div>
+                <input type="text" placeholder="输入图片路径" id="imgUrl"/>
+            </div>
+        </div>
+
+        <div class="right m-right">
+            <h1>title 标题设置:</h1>
+            <input type="text" placeholder="输入标题"/>
+
+            <div class="f-space"></div>
+            <h1>content 内容设置:</h1>
+            <textarea rows="10" placeholder="输入内容"></textarea>
+        </div>
+        <button>save</button>
+    </section>-->
+    <!-- 自定义指令 -->
+    <!--<section-add-dir></section-add-dir>-->
+    <div ng-view></div>
+</div>
+
+<button class="f-add-btn" ng-click="addSection()">Add Section</button>
+<br/>
+<button class="f-add-btn" ng-click="writeData()">Write Data</button>
+
+<script src="public/js/comm/angular.js"></script>
+<script src="public/js/comm/angular-route.js"></script>
+<!-- 把公共依赖的内容全部打包到vendor.js中 -->
+<script>
+    var app = angular.module('contentApp', ['ngRoute']);
+    var resultArr = {
+        read: [],
+        video: [],
+        find: []
+    };
+    var data = {};
+    var templateUrl = "contentCtrl_section.html";
+    var directiveStr = "";
+    var links = document.querySelectorAll('.m-link');
+
+
+    angular.element(links).on('click', function (e) {
+        var type = angular.element(this).html();
+
+        switch (type) {
+            case "阅读":
+            {
+                directiveStr = '<section-add-dir></section-add-dir>';
+                break;
+            }
+            case "视听":
+            {
+                directiveStr = '<video-add-dir></video-add-dir>';
+                break;
+            }
+            case "发现":
+            {
+                directiveStr = '<find-add-dir></find-add-dir>';
+                break;
+            }
+        }
+    });
+
+
+    app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(true);
+
+        $routeProvider
+                .when('/public/content/ctrlread', {
+                    template: '<section-add-dir></section-add-dir>',
+                    controller: 'jsonCtrl'
+                })
+                .when('/public/content/control.html', {
+                    template: '<section-add-dir></section-add-dir>',
+                    controller: 'jsonCtrl'
+                })
+                .when('/public/content/ctrlvideo', {
+                    template: '<video-add-dir></video-add-dir>',
+                    controller: 'jsonCtrl'
+                })
+                .when('/public/content/ctrlfind', {
+                    template: '<find-add-dir></find-add-dir>',
+                    controller: 'jsonCtrl'
+                })
+
+    }]);
+
+    /*自定义指令*/
+    app
+            .controller('jsonCtrl', ['$scope', '$compile', '$http', function ($scope, $compile, $http) {
+                //添加section 单元内容的按钮
+                var container = document.getElementById('container');
+                //select 默认选择写入内容的类型
+                var writeType = 'read';
+
+                $scope.addSection = function () {
+                    var link = $compile(directiveStr),
+                            node = link($scope),
+                            container = document.getElementById('container');
+                    angular.element(container).append(node);
+                };
+                //生成文件的jsonp请求
+                $scope.generateFile = function () {
+                    var fileName = document.getElementById('fileName').value;
+                    console.log('fileName:', fileName);
+                    data.title = fileName;
+                    $http.jsonp("http://127.0.0.1:3000/test3?callback=JSON_CALLBACK", {
+                        method: 'get',
+                        headers: {'Content-Type': false},
+                        params: {title: fileName}
+                    }).success(function (data) {
+                        console.log('success...');
+                        console.log(data);
+                    }).error(function (err) {
+                        console.log('error...');
+                        console.log(err);
+                    });
+                };
+                //写数据
+                $scope.writeData = function () {
+                    if (resultArr.length != 0) {
+                        //data[writeType] = resultArr;
+
+                        console.log('resultArr:');
+                        console.log(resultArr);
+                        $http.jsonp("http://127.0.0.1:3000/test4?callback=JSON_CALLBACK", {
+                            method: 'get',
+                            headers: {'Content-Type': false},
+                            params: {data: resultArr}
+                        }).success(function (data) {
+                            console.log('write data success...');
+                            console.log(data);
+                        }).error(function (err) {
+                            console.log('write data error...');
+                            console.log(err);
+                        });
+                    }
+                };
+            }])
+            .controller('testCtrl', function () {
+
+            })
+        /* 所有的模块共用冒泡点击事件的指令 */
+            .directive('clickControl', function () {
+                return {
+                    restrict: 'A',
+                    link: function (scope, elem, attrs) {
+                        //将事件绑定在顶层父元素身上
+                        elem.on('click', function (e) {
+                            var targetNode = e.target;
+                            if (targetNode.dataset.name == 'remove') {
+                                //如果点击的是remove button
+                                this.parentNode.removeChild(this);
+                            } else if (targetNode.dataset.name == 'reset') {
+                                //如果点击的是reset button
+                                var inputs = document.getElementsByTagName('input');
+                                var textareas = document.getElementsByTagName('textarea');
+
+                                angular.element(inputs).val('');
+                                angular.element(textareas).val('');
+                            }
+
+                        });
+                    }
+                }
+            })
+            .directive('sectionAddDir', ['$http', function ($http) {
+                return {
+                    restrict: 'E',
+                    templateUrl: '/public/partials/contentCtrl_section.html',
+                    scope: true,
+                    link: function (scope, elem, attrs) {
+                        //将表单内容转换为json
+                        scope.getJson = function () {
+                            //如何获取form表单为json格式的内容
+                            //var myForm = elem.querySelector('form');
+                            var resultData = {};
+                            var form = angular.element(elem).find('form')[0];
+                            var inputs = angular.element(form).find('input');
+                            var content = angular.element(form).find('textarea');
+
+                            writeType = 'read';
+
+                            resultData.imgTitle = inputs[0].value;
+                            resultData.img = inputs[1].value;
+                            resultData.title = inputs[2].value;
+                            resultData.content = content[0].value;
+
+                            resultArr[writeType].push(resultData);
+                        };
+                    }
+                };
+            }])
+            .directive('videoAddDir', ['$http', function ($http) {
+                return {
+                    restrict: 'E',
+                    templateUrl: '/public/partials/videoCtrl_section.html',
+                    scope: true,
+                    link: function (scope, elem, attrs) {
+                        scope.getJson = function () {
+                            var resultData = {};
+                            var inputs = angular.element(elem).find('input');
+
+                            writeType = 'video';
+
+                            resultData = {
+                                title: inputs[0].value,
+                                link: inputs[1].value,
+                                src: inputs[2].value
+                            };
+                            resultArr[writeType].push(resultData);
+                        };
+                    }
+                }
+            }])
+            .directive('findAddDir', ['$http', function ($http) {
+                return {
+                    restrict: 'E',
+                    templateUrl: '/public/partials/findCtrl_section.html',
+                    scope: true,
+                    link: function (scope, elem, attrs) {
+                        scope.getJson = function () {
+                            var resultData = {};
+                            var inputs = angular.element(elem).find('input');
+                            var select = angular.element(elem).find('select')[0];
+                            var textarea = angular.element(elem).find('textarea')[0];
+
+                            writeType = 'find';
+
+                            resultData = {
+                                href: inputs[0].value,
+                                logoClass: select.value,
+                                title: inputs[1].value,
+                                src: inputs[2].value,
+                                detail: textarea.value
+                            };
+
+                            resultArr[writeType].push(resultData);
+                        }
+                    }
+                };
+            }]);
+</script>
+</body>
+</html>

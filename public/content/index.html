@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="keywords" content=" "/>
+    <meta name="description" content=" "/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>列表</title>
+    <link href="../../build/css/index.css" rel="stylesheet"/>
+    <!-- 注意这里base千千万万不能写成空的 不然会出错的 -->
+    <base href="/"/>
+</head>
+<!-- 加上addClass 和 removeClass  -->
+<body ng-controller="contentDetailControl" class="m-wrapper" ng-init="isHide=false;isLoaded=false">
+<!-- 默认状态下 页面内容是否隐藏 -->
+<div class="m-container m-content">
+    <!-- loading 动画效果 通过isLoaded来控制loading动画的显示与隐藏  -->
+    <div class="m-loading-container" ng-hide="isLoaded">
+        <img src="/public/img/svg/spinner.svg" width="60px" height="60px" id="test"/>
+    </div>
+
+    <!-- 标题title 部分 -->
+    <div class="m-title-bar">
+        <a ng-click="reloadIndex()"><</a>
+        <span class="title">地球诞生的历史</span>
+    </div>
+
+    <!-- 二级导航部分 -->
+    <div class="m-category-nav" ng-init="clickNavIndex=0">
+        <!-- 阅读按钮 -->
+        <a class="item active" href="/public/read" ng-click="clickNavIndex = 0">
+            <div class="itemPic item1" ng-class="{active:clickNavIndex == 0}">
+            </div>
+            <div class="itemWord" ng-class="{active:clickNavIndex == 0}">阅读</div>
+        </a>
+
+        <!-- 视听按钮 -->
+        <a class="item" href="/public/video" ng-click="clickNavIndex = 1">
+            <div class="itemPic item2" ng-class="{active:clickNavIndex == 1}">
+            </div>
+            <div class="itemWord" ng-class="{active:clickNavIndex == 1}">视听</div>
+        </a>
+
+        <!-- 发现按钮 -->
+        <a class="item" href="/public/find" ng-click="clickNavIndex = 2">
+            <div class="itemPic item3" ng-class="{active:clickNavIndex == 2}">
+            </div>
+            <div class="itemWord" ng-class="{active:clickNavIndex == 2}">发现</div>
+        </a>
+    </div>
+
+    <!-- 内容部分 根据路由修改子模板的路径 -->
+    <div class="m-content-area">
+        <div class="m-reading-container">
+            <!-- 子模板 -->
+            <div ng-view class="view-slide-in"></div>
+        </div>
+    </div>
+
+    <!-- 底部导航部分 -->
+    <div class="m-nav-bar">
+    </div>
+</div>
+
+<!-- 把公共依赖的内容全部打包到vendor.js中 -->
+<script src="../../build/vendor.js"></script>
+<script src="../../build/index.bundle.js"></script>
+</body>
+</html>

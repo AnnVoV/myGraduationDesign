@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="keywords" content=" "/>
+    <meta name="description" content=" "/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>列表</title>
+    <link href="../../build/css/index.css" rel="stylesheet"/>
+    <!-- 注意这里base千千万万不能写成空的 不然会出错的 -->
+    <base href="/"/>
+</head>
+<!-- 加上addClass 和 removeClass 好了 -->
+<body ng-controller="contentDetailControl" class="m-wrapper" ng-init="isHide=false">
+<div class="m-container m-content">
+    <!-- 标题title 部分 -->
+    <div class="m-title-bar">
+        <a href="/public/category"><</a>
+        <span class="title">地球诞生的历史</span>
+    </div>
+
+    <!-- 二级导航部分 -->
+    <div class="m-category-nav" ng-init="clickNavIndex=0">
+        <!-- 阅读按钮 -->
+        <a class="item active" href="/public/read" ng-click="clickNavIndex = 0">
+            <div class="itemPic item1" ng-class="{active:clickNavIndex == 0}">
+            </div>
+            <div class="itemWord" ng-class="{active:clickNavIndex == 0}">阅读</div>
+        </a>
+
+        <!-- 视听按钮 -->
+        <a class="item" href="/public/video" ng-click="clickNavIndex = 1">
+            <div class="itemPic item2" ng-class="{active:clickNavIndex == 1}">
+            </div>
+            <div class="itemWord" ng-class="{active:clickNavIndex == 1}">视听</div>
+        </a>
+
+        <!-- 发现按钮 -->
+        <a class="item" href="/public/find" ng-click="clickNavIndex = 2">
+            <div class="itemPic item3" ng-class="{active:clickNavIndex == 2}">
+            </div>
+            <div class="itemWord" ng-class="{active:clickNavIndex == 2}">发现</div>
+        </a>
+    </div>
+
+    <!-- 内容部分 根据路由修改子模板的路径 -->
+    <div class="m-content-area">
+        <div class="m-reading-container">
+            <!-- 子模板 -->
+            <!-- 阅读部分的模板 -->
+            <section class="m-section">
+                <div class="leftContent" ng-hide="isHide">
+                    <img ng-src="public/img/timeDivide1.jpg"/>
+                    <i class="m-img-title">地质年代表</i>
+                </div>
+                <div class="rightContent">
+                    <h2>年表分类的方式</h2>
+
+                    <p ng-hide="isHide">
+                        年表中最大的时间单位是宙(eon),宙下是代(era),代下分纪(period),纪下分世(epoch)。我们如果能获悉化石是宙、代、纪或世的遗物,间接就可以知道这个化石形成的粗略时间。
+                    </p>
+                </div>
+
+                <!-- 控制面板的收起button -->
+                <div class="m-folder-ctrl" ng-hide="isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOff($event)">点击收起</a>
+                        <i class="foldOff"></i>
+                    </div>
+                </div>
+
+                <!-- 控制面板的展开button -->
+                <div class="m-folder-ctrl" ng-hide="!isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOn($event)" ng-class="">点击展开</a>
+                        <i class="foldOn"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="m-section">
+                <div class="leftContent" ng-hide="true">
+                    <img ng-src="public/img/timeDivide1.jpg"/>
+                    <i class="m-img-title">年表的命名</i>
+                </div>
+                <div class="rightContent">
+                    <h2>年表分类的方式</h2>
+
+                    <p ng-hide="isHide">
+                        年表中各个宙、代、纪和世都有自己的名称，用于描述生物在不同地质时空的发展程度，一般以首先研究它们时期岩石的地点来命名。
+                    </p>
+                </div>
+
+                <!-- 控制面板的收起button -->
+                <div class="m-folder-ctrl" ng-hide="isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOff($event)">点击收起</a>
+                        <i class="foldOff"></i>
+                    </div>
+                </div>
+
+                <!-- 控制面板的展开button -->
+                <div class="m-folder-ctrl" ng-hide="!isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOn($event)" ng-class="">点击展开</a>
+                        <i class="foldOn"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="m-section">
+                <div class="leftContent" ng-hide="isHide">
+                    <img ng-src="public/img/timeDivide1.jpg"/>
+                    <i class="m-img-title">宙</i>
+                </div>
+                <div class="rightContent">
+                    <h2>宙</h2>
+
+                    <p ng-hide="isHide">
+                    <ul>
+                        <li>显生宙 —— 现代生物存在的时期</li>
+                        <li>远古宙 —— 久远的原始生物的时期</li>
+                        <li>太古宙 —— 初始生物的时期</li>
+                        <li>冥古宙 —— 生命现象开始的时期</li>
+                    </ul>
+                    </p>
+                </div>
+
+                <!-- 控制面板的收起button -->
+                <div class="m-folder-ctrl" ng-hide="isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOff($event)">点击收起</a>
+                        <i class="foldOff"></i>
+                    </div>
+                </div>
+
+                <!-- 控制面板的展开button -->
+                <div class="m-folder-ctrl" ng-hide="!isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOn($event)" ng-class="">点击展开</a>
+                        <i class="foldOn"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="m-section">
+                <div class="leftContent" ng-hide="isHide">
+                    <img ng-src="public/img/timeDivide1.jpg"/>
+                    <i class="m-img-title">代</i>
+                </div>
+                <div class="rightContent">
+                    <h2>代</h2>
+
+                    <p ng-hide="isHide">
+                    <ul>
+                        <li>新生代 —— 现代生物的时期</li>
+                        <li>中生代 —— 中等进化生物的时期</li>
+                        <li>古生代 —— 古代生物的时期</li>
+                    </ul>
+                    </p>
+                </div>
+
+                <!-- 控制面板的收起button -->
+                <div class="m-folder-ctrl" ng-hide="isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOff($event)">点击收起</a>
+                        <i class="foldOff"></i>
+                    </div>
+                </div>
+
+                <!-- 控制面板的展开button -->
+                <div class="m-folder-ctrl" ng-hide="!isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOn($event)" ng-class="">点击展开</a>
+                        <i class="foldOn"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="m-section">
+                <div class="leftContent" ng-hide="true">
+                    <img ng-src="public/img/timeDivide1.jpg"/>
+                    <i class="m-img-title">纪</i>
+                </div>
+                <div class="rightContent">
+                    <h2>纪</h2>
+
+                    <p ng-hide="isHide">
+                        <div>所有的名称都是从英语经由日语引入汉语的。</div>
+                        <ul>
+                            <li>寒武纪(Cambrian) —— 取名于拉丁文Cambria,即威尔斯。</li>
+                            <li>奥陶纪(Ordovician) —— 名称来自大不列颠的古老部落(奥陶部落)。</li>
+                            <li>志留纪(Silurian) —— 名称来自大不列颠的古老部落(志留部落)。</li>
+                            <li>泥盆纪(Devonian) —— 名称来自英国德文郡(Devonshire)。</li>
+                            <li>石炭纪(Carboniferous) —— 名称来自大不列颠群岛的含煤的岩石。日语里把煤叫“石炭”。</li>
+                            <li>二叠纪(Silurian) —— 取名于俄罗斯的彼尔姆州(Perm)。另外没有“一叠纪”。</li>
+                            <li>三叠纪(Triassic) —— 来自拉丁文“三”(Trias),因为最初发现的地层明显分为三层。</li>
+                            <li>侏罗纪(Jurassic) —— 取名于法国与瑞士之间的汝拉山(Jura Moutain,又翻译作侏罗山)。</li>
+                            <li>白垩纪(Cretaceous) —— 取自拉丁文Creta,意指白垩。</li>
+                            <li>第三纪(Tertiary) —— 第三个衍生物。第三纪已经撤销，原来的第三纪现在分为古近纪和新近纪。</li>
+                            <li>第四纪(Quaternary) —— 第四个衍生物。有些学者认为应当撤销。</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <!-- 控制面板的收起button -->
+                <div class="m-folder-ctrl" ng-hide="isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOff($event)">点击收起</a>
+                        <i class="foldOff"></i>
+                    </div>
+                </div>
+
+                <!-- 控制面板的展开button -->
+                <div class="m-folder-ctrl" ng-hide="!isHide">
+                    <div class="btnContainer">
+                        <a href="#" ng-click="foldOn($event)" ng-class="">点击展开</a>
+                        <i class="foldOn"></i>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- 底部导航部分 -->
+    <div class="m-nav-bar">
+    </div>
+</div>
+
+<!-- 把公共依赖的内容全部打包到vendor.js中 -->
+<script src="../../build/vendor.js"></script>
+<script src="../../build/index.bundle.js"></script>
+</body>
+</html>

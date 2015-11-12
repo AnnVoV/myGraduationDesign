@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content=" "/>
+    <meta name="description" content=" "/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>Canvas Collision Test</title>
+    <!-- raphael 库-->
+    <script src="../js/comm/raphael-min.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="300" height="150"></canvas>
+
+<!-- 引入打包后的tree.js 模块 -->
+<script src="../../build/vendor.js"></script>
+<script src="../../build/tree.bundle.js"></script>
+<script>
+</script>
+
+<!--<script>
+    //绘制矩形
+    var drawRect = function (rects, elem) {
+        if (elem && elem.getContext) {
+            //将要渲染的矩形图案的数组
+            var ctx = elem.getContext('2d');
+            if (ctx) {
+                for (var i = 0; i < rects.length; i++) {
+                    //根据数组中设置的位置来绘制矩形
+                    ctx.fillRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h);
+                }
+            }
+        }
+    };
+
+    //判断rects 数组与鼠标之间是否发生了碰撞
+    var isCollide = function (rects, x, y) {
+        //是否发生了碰撞设置为false
+        var isCollision = false;
+        for (var i = 0; i < rects.length; i++) {
+            var left = rects[i].x;
+            var right = rects[i].x + rects[i].w;
+            var top = rects[i].y;
+            var bottom = rects[i].y + rects[i].h;
+
+            if (x >= left && x <= right && y >= top && y <= top + bottom) {
+                console.log(rects[i]);
+                isCollision = rects[i];
+            }
+            //我原来把return isCollision 写在这里了这是不对的！
+        }
+        return isCollision;
+    };
+
+    //主函数
+    var main = function () {
+        var elem = document.getElementById("canvas");
+        var rects = [
+            {id: 0, x: 0, y: 0, w: 50, h: 50},
+            {id: 1, x: 75, y: 0, w: 50, h: 50}
+        ];
+
+        drawRect(rects, elem);
+        //给画布加上事件代理绑定相关的点击事件
+        elem.addEventListener('click', function (e) {
+            var mouseX = e.offsetX;
+            var mouseY = e.offsetY;
+
+            var rect = isCollide(rects, mouseX, mouseY);
+            if (rect)
+                alert(rect.id + 'is be clicked now!');
+        });
+    };
+
+    //main();
+
+    //常使用raphael 绘制树状图
+    /* var raphTest = function (dis, r, length) {
+     var paper = Rapheal(0, 0, 300, 400);
+
+     var centerPt = {
+     x: 150,
+     y: 200
+     };
+
+     var drawCircle = function(dis, r, length){
+     paper.circle(centerPt.x, centerPt.y,r);
+     }
+     };
+
+     raphTest(100, 30, 1);*/
+    var r = Raphael(0, 0, 300, 400);
+    var centerPt = {
+        x: 150,
+        y: 200
+    };
+
+    var raphTest = function (paper, disR, radius, length) {
+        r.circle(centerPt.x, centerPt.y, radius)
+        .attr({fill: '#209825', stroke: '#13e11d'})
+
+
+
+        var startPt = {
+            x: centerPt.x,
+            y: centerPt.y - disR
+        };
+
+        var perDeg = 2 * Math.PI / length;
+
+        var getPos = function (index) {
+            return {
+                x: startPt.x + disR * Math.sin(perDeg * index),
+                y: startPt.y + disR - disR * Math.cos(perDeg * index)
+            }
+        };
+
+        for(var i=0; i<length;i++){
+            var pos = getPos(i);
+            //绘制圆形
+            r.circle(pos.x, pos.y, radius)
+                    .data('id', i)//通过使用data 来设置id
+                    .attr({fill: '#209825', stroke: '#13e11d'})
+                    .mouseover(function(){
+                        //给circle设置动画效果
+                        console.log('over...');
+                        this.animate({r: '40', opacity:.8}, 500);
+                    })
+                    .mouseout(function(){
+                        console.log('out....');
+                        this.animate({r: '20', opacity: 1}, 500);
+                    });
+
+            //raphael 绘制直线的方式也很简单
+            var pathStr = "M"+centerPt.x+","+centerPt.y+ ' L'+pos.x+","+pos.y;
+            console.log(pathStr);
+
+            r.path(pathStr)
+                    .attr({stroke:'#209825'});
+
+            r.text(pos.x+2.5, pos.y, 'hello')
+                    .attr({'font-size': '16px'})
+                    .mouseover(function(){
+                        console.log(this);
+                    })
+        }
+
+
+    };
+
+    raphTest(r, 100, 25, 5);
+</script>-->
+
+
+</body>
+</html>

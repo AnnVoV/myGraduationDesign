@@ -1,0 +1,18 @@
+<!-- 发现部分的模板 -->
+<section class="m-section">
+    <a href="{{item.href}}" target="_blank" class="m-link-container">
+        <div class="f-test">{{$index+1}}</div>
+        <!-- logo图片 -->
+        <div class="f-logo {{item.logoClass}}"></div>
+        <h3>{{item.title}}</h3>
+        <img ng-show="item.src!=''" ng-src="public/img/{{item.src}}" class="m-detail-img"/>
+        <div class="m-detail-word">
+            <!--{{item.detail|limitTo: 200}}-->
+
+            {{ item.detail | limitTo : 50 : 0  }}
+            <span ng-show="item.detail.length>50">...</span>
+            <!--在地球由原始太阳星云的部分物质构成后计起，科学家估计大约有46亿年到50亿年之间。而因为表述这么长久的时间有所困难，可将地球形成的时间设为凌晨零时，而现代则为翌日的凌晨零时，将地球的历史模拟为二十四小时，每秒大约代表5万3000年，而大爆炸与宇宙形成的时刻，则大约在137亿年前。-->
+            <span class="f-read-more">显示更多</span>
+        </div>
+    </a>
+</section>

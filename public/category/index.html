@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="keywords" content=" "/>
+    <meta name="description" content=" "/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>列表</title>
+    <link href="../../build/css/index.css" rel="stylesheet"/>
+    <!-- 注意这里base千千万万不能写成空的 不然会出错的 -->
+    <base href="/"/>
+</head>
+<!-- 加上addClass 和 removeClass 好了 -->
+<body ng-controller="contentControl" class="m-wrapper" ng-init="isHide=false">
+<div class="m-container m-content">
+    <div class="m-loading-container" ng-hide="isLoaded">
+        <img src="/public/img/svg/spinner.svg" width="60px" height="60px" id="test"/>
+    </div>
+
+    <!-- 标题title 部分 -->
+    <div class="m-title-bar">
+        <a href="javascript:window.history.back()"><</a>
+        <!--后退url -->
+        <span class="title">百科目录</span>
+    </div>
+
+    <div class="m-filter-bar">
+        <input type="text" placeholder="搜索您感兴趣的目录" ng-model="category"/>
+
+        <div class="filter">
+            <img src="/public/img/svg/icon_filter.svg" width="15px" height="15px">
+            <span>筛选</span>
+        </div>
+    </div>
+
+    <!-- 内容部分 根据路由修改子模板的路径 -->
+    <div class="m-content-area m-category-area">
+        <section class="m-category-container repeat-animation" ng-repeat="item in categoryArr|filter:{title: category}">
+            <a href="/public/content?category={{item.title}}">
+                <div class="leftCol">
+                    <div class="crownContainer">
+                        <img ng-src="public/img/svg/icon_crown.svg" width="18px" height="18px"/>
+                    </div>
+                    <div class="mask"></div>
+                    <img ng-src="public/img/{{item.listBg}}" width="95px" height="95px"/>
+                </div>
+
+                <div class="rightCol">
+                    <h1>{{item.title}}</h1>
+
+                    <p>{{item.info}}</p>
+                    <span class="f-tag" ng-repeat="tag in item.tagArr">{{tag}}</span>
+                </div>
+            </a>
+        </section>
+    </div>
+
+    <!-- 底部导航部分 -->
+    <div class="m-nav-bar">
+    </div>
+</div>
+
+<!-- 把公共依赖的内容全部打包到vendor.js中 -->
+<script src="../../build/vendor.js"></script>
+<script src="../../build/index.bundle.js"></script>
+</body>
+</html>

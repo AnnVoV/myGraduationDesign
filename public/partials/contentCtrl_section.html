@@ -1,0 +1,31 @@
+<!-- 内容管理部分的模板 -->
+<section click-control>
+    <!-- 表单内容 -->
+    <form name="form" method="get" enctype="application/x-www-form-urlencoded">
+        <div class="left">
+            <div class="img">
+                <div>放置img区域</div>
+                <input type="text" placeholder="输入图片路径" id="imgUrl" name="img"/>
+            </div>
+        </div>
+
+        <div class="right m-right">
+            <h1>imgTitle 图片标题设置:</h1>
+            <input type="text" placeholder="图片标题" name="imgTitle"/>
+
+            <div class="f-space"></div>
+            <h1>title 标题设置:</h1>
+            <input type="text" placeholder="输入标题" name="title"/>
+
+            <div class="f-space"></div>
+            <h1>content 内容设置(可以输入html标签):</h1>
+            <textarea rows="10" placeholder="输入内容" name="content"></textarea>
+        </div>
+        <!-- 将表单中的内容生成json对象 -->
+        <button ng-click="getJson()">save</button>
+        <!-- 清除表中内容 -->
+        <button data-name="reset">clear</button>
+        <!-- 移除这个模块 -->
+        <button data-name="remove">remove</button>
+    </form>
+</section>

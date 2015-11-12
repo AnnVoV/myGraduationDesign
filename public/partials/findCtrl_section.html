@@ -1,0 +1,44 @@
+<section class="m-section">
+    <div class="f-space"></div>
+    <div>
+        <h1>链接地址填写:</h1>
+        <input type="text" placeholder="链接地址"/>
+    </div>
+
+
+    <div class="f-space"></div>
+    <div>
+        <h1>资源来源logo Class 选择</h1>
+        <select>
+            <option value="logo-baidu">logo-baidu</option>
+            <option value="logo-wiki">logo-wiki</option>
+            <option value="logo-guoke">logo-guoke</option>
+            <option value="logo-zhihu">logo-zhihu</option>
+            <option value="logo-songshu">logo-songshu</option>
+        </select>
+    </div>
+
+    <div class="f-space"></div>
+    <div>
+        <h1>资源title名称</h1>
+        <input type="text" placeholder="插入的资源名称"/>
+    </div>
+
+    <div class="f-space"></div>
+    <div>
+        <h1>资源img名称</h1>
+        <input type="text" placeholder="插入的资源图片名称"/>
+    </div>
+
+    <div class="f-space"></div>
+    <div>
+        <h1>资源内容content简介(可以输入html标签):</h1>
+        <textarea placeholder="输入内容简介" cols="50"></textarea>
+    </div>
+    <!-- 将表单中的内容生成json对象 -->
+    <button ng-click="getJson()">save</button>
+    <!-- 清除表中内容 -->
+    <button data-name="reset">clear</button>
+    <!-- 移除这个模块 -->
+    <button data-name="remove">remove</button>
+</section>

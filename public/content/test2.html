@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="keywords" content=" "/>
+    <meta name="description" content=" "/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>列表</title>
+    <link href="../../build/css/index.css" rel="stylesheet"/>
+    <!-- 注意这里base千千万万不能写成空的 不然会出错的 -->
+    <base href="/"/>
+    <style>
+        #canvas1 {
+            position: absolute;
+            top: 90px;
+            left: 0;
+            z-index: 1;
+        }
+
+        #canvas2 {
+            position: absolute;;
+            top: 90px;
+            left: 0;
+            z-index: 2;
+        }
+    </style>
+</head>
+<!-- 加上addClass 和 removeClass 好了 -->
+<body ng-controller="contentControl" class="m-wrapper" ng-init="isHide=false">
+<div class="m-container m-content">
+    <!-- 标题title 部分 -->
+    <div class="m-title-bar">
+        <a href="javascript:history.back()"><</a>
+        <span class="title">百科目录</span>
+    </div>
+
+    <div class="m-filter-bar">
+        <input type="text" placeholder="搜索您感兴趣的目录" ng-model="category"/>
+
+        <div class="filter">
+            <img src="/public/img/svg/icon_filter.svg" width="15px" height="15px">
+            <span>筛选</span>
+        </div>
+    </div>
+
+    <!-- 内容部分 根据路由修改子模板的路径 -->
+    <div class="m-content-area m-category-area">
+        <canvas id="canvas1" width="300px" height="400px"></canvas>
+        <canvas id="canvas2" width="300px" height="400px"></canvas>
+    </div>
+
+    <!-- 底部导航部分 -->
+    <div class="m-nav-bar">
+    </div>
+</div>
+
+<!-- 把公共依赖的内容全部打包到vendor.js中 -->
+<script src="../../build/vendor.js"></script>
+<script src="../../build/index.bundle.js"></script>
+<script>
+    /* 绘制树状的结构图 */
+    var leafArr = [
+        '地质年代表',
+        '冥古宙',
+        '太古宙',
+        '元古宙'
+    ];
+    var circlePtArr = [];
+
+    /**
+     * drawCircle 绘制树状结构图
+     * @param disr canvas圆心点距离绘制的圆的圆心点的距离
+     * @param r 绘制的小圆的半径
+     * @param length 要绘制多少个圆形
+     */
+    var drawCircle = function (disr, r, length) {
+        var canvas = document.getElementById('canvas1'),
+            ctx = canvas.getContext('2d'),
+            width = canvas.width,
+            height = canvas.height,
+            perDeg = 2*Math.PI / length;
+
+
+        //绘制第一个圆的起点坐标
+        var startPt = {
+            x: width/2,
+            y: height/2 - disr -r
+        };
+
+        //绘制圆形
+        ctx.beginPath();
+
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#000';
+
+        //绘制文字
+        //这个的层级好像与别的层级不太对
+        //ctx.fillText('test',startPt.x, startPt.y);
+
+        ctx.arc(startPt.x, startPt.y , r, 0, Math.PI * 2, true);
+
+
+
+        circlePtArr.push({x:width/2, y:height/2-disr-r});
+
+        /*获得要绘制的圆的起点坐标*/
+        var getCenterPt = function(index){
+            var centerPt = {
+                x: width/2,
+                y: height/2 - disr
+            };
+
+            var x = centerPt.x + disr * Math.sin(perDeg*index);
+            var y = centerPt.y + (disr - disr * Math.cos(perDeg*index));
+
+            return {
+              x: x, y: y
+            };
+        };
+
+        /*绘制两点之间的连线*/
+        var drawLine = function(ctx, pt1, pt2){
+              ctx.beginPath();
+              ctx.moveTo(pt1.x, pt1.y);
+              ctx.lineTo(pt2.x, pt2.y);
+              ctx.fill();
+        };
+
+        //绘制最中心的圆形
+        var canvasCenterPt = {
+            x: width/2,
+            y: height/2 - r
+        };
+
+        console.log('canvasX:', canvasCenterPt.x);
+        console.log('canvasY:', height/2);
+
+
+        ctx.moveTo(canvasCenterPt.x, canvasCenterPt.y);
+        ctx.arc(canvasCenterPt.x, canvasCenterPt.y, r, 0, Math.PI*2, true);
+
+
+        for(var i=1;i<6; i++){
+            //把所有要画得圆心的位置打印出来
+            var centerPt = getCenterPt(i);
+
+            //我们要画的圆的起点坐标
+            var startPt = {
+                x: centerPt.x ,
+                y: centerPt.y - r
+            };
+            ctx.moveTo(startPt.x, startPt.y);
+            ctx.fillStyle = '#209825';
+            var nowPt = {
+                x: startPt.x - Math.random()*20,
+                y: startPt.y + Math.random()*20
+            };
+            circlePtArr.push(nowPt);
+            //绘制圆形
+            ctx.arc(nowPt.x, nowPt.y, r, 0, Math.PI*2, true);
+        }
+        //绘制相关的路径
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+    };
+    drawCircle(120, 24, 6);
+
+    var canvasWidth = document.getElementById('canvas1').width;
+    var canvasHeight = document.getElementById('canvas1').height;
+    var test = {
+        x: canvasWidth/2,
+        y: canvasHeight/2
+    };
+    var drawLine = function(centerPt, circlePtArr, r,index){
+        var ctx = document.getElementById('canvas1').getContext('2d');
+        ctx.beginPath();
+        ctx.moveTo(centerPt.x, centerPt.y-r);
+
+        ctx.lineTo(circlePtArr[index].x, circlePtArr[index].y);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#209825';
+        ctx.stroke();
+        ctx.closePath();
+    };
+
+    //绘制一条直线
+    for(var i = 0; i < circlePtArr.length; i++){
+        drawLine(test, circlePtArr, 30, i);
+    };
+
+    //绘制文字
+    var drawText = function(){
+        var ctx = document.getElementById('canvas2').getContext('2d');
+        for(var i = 0; i < circlePtArr.length; i++){
+            ctx.font = '20px Georgia';
+            ctx.fillStyle = '#fff';
+            ctx.fillText('test', circlePtArr[i].x - 13, circlePtArr[i].y+5);
+        }
+
+    };
+
+    drawText();
+
+
+</script>
+</body>
+</html>
