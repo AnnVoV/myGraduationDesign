@@ -8,4 +8,8 @@
 * 知识点2： node.js 的File System 相关api 并不熟练 [Accessing the File System in Node.js](http://www.sitepoint.com/accessing-the-file-system-in-node-js/)
 
 
+### 2.整个是用angular+webpack做的一个webapp
 
+* 知识点1： webpack 的相关使用
+
+* 知识点2： angular 的相关内容（慢慢细化...）
